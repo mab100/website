@@ -26,6 +26,11 @@ nav ul a:hover{color:var(--coral)}
 nav ul a.active{color:var(--coral);border-bottom:1.5px solid var(--coral);padding-bottom:2px}
 .nav-cta{background:var(--coral)!important;color:var(--white)!important;padding:0.5rem 1.2rem!important;border-radius:2px!important;text-transform:none!important}
 .nav-cta:hover{background:var(--coral-dark)!important;color:var(--white)!important}
+.nav-bag{position:relative;text-decoration:none;color:var(--navy);display:flex;align-items:center;transition:color 0.2s}
+.nav-bag:hover{color:var(--coral)}
+.nav-bag svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.nav-bag-count{position:absolute;top:-6px;right:-7px;background:var(--coral);color:var(--white);font-family:'Arial',sans-serif;font-size:0.55rem;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;display:none}
+.nav-bag-count.visible{display:flex}
 
 /* PAGE WRAPPER */
 .page-body{padding-top:80px}
@@ -63,7 +68,7 @@ section{padding:5rem 3rem}
 .shop-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2.5rem}
 .shop-count{font-family:'Arial',sans-serif;font-size:0.75rem;color:var(--muted);letter-spacing:0.05em}
 .shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem 2rem}
-.product-card{cursor:pointer}
+.product-card{cursor:pointer;text-decoration:none;color:inherit;display:block}
 .product-card:hover .product-img-wrap img{transform:scale(1.03)}
 .product-img-wrap{width:100%;aspect-ratio:2/3;overflow:hidden;background:var(--coral-pale);position:relative;margin-bottom:0.9rem}
 .product-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s ease;display:block}
@@ -131,12 +136,61 @@ section{padding:5rem 3rem}
 .ps-num{font-size:1.8rem;font-weight:700;color:var(--coral-light);font-family:'Arial',sans-serif}
 .ps-label{font-family:'Arial',sans-serif;font-size:0.72rem;color:rgba(255,255,255,0.7);margin-top:0.3rem;line-height:1.4}
 
+/* PRODUCT DETAIL PAGE */
+.product-detail{padding:3rem 3rem 5rem}
+.product-detail-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.product-gallery{display:flex;flex-direction:column;gap:0.75rem}
+.product-gallery img{width:100%;border-radius:2px;display:block}
+.product-gallery-main{aspect-ratio:2/3;object-fit:cover}
+.product-gallery-thumb-row{display:flex;gap:0.5rem}
+.product-gallery-thumb{width:80px;height:100px;object-fit:cover;cursor:pointer;opacity:0.6;border:2px solid transparent;border-radius:2px;transition:opacity 0.2s,border-color 0.2s}
+.product-gallery-thumb.active,.product-gallery-thumb:hover{opacity:1;border-color:var(--coral)}
+.product-detail-info{position:sticky;top:100px}
+.product-breadcrumb{font-family:'Arial',sans-serif;font-size:0.72rem;color:var(--muted);letter-spacing:0.05em;margin-bottom:1.5rem}
+.product-breadcrumb a{color:var(--muted);text-decoration:none}
+.product-breadcrumb a:hover{color:var(--coral)}
+.product-detail-badge{display:inline-block;font-family:'Arial',sans-serif;font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:2px;background:var(--coral);color:var(--white);margin-bottom:0.8rem}
+.product-detail-name{font-size:1.8rem;color:var(--navy);font-weight:400;line-height:1.2;margin-bottom:0.5rem}
+.product-detail-price{font-family:'Arial',sans-serif;font-size:1.2rem;color:var(--navy);font-weight:700;margin-bottom:1.5rem}
+.product-detail-desc{font-family:'Arial',sans-serif;font-size:0.9rem;color:var(--muted);line-height:1.8;margin-bottom:2rem;border-bottom:1px solid rgba(30,34,71,0.08);padding-bottom:2rem}
+.size-label{font-family:'Arial',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--navy);margin-bottom:0.75rem;display:flex;justify-content:space-between}
+.size-grid{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.size-btn{font-family:'Arial',sans-serif;font-size:0.78rem;padding:0.5rem 1rem;border:1px solid rgba(30,34,71,0.2);background:var(--white);cursor:pointer;color:var(--navy);transition:all 0.15s;border-radius:2px}
+.size-btn:hover{border-color:var(--navy)}
+.size-btn.selected{border-color:var(--navy);background:var(--navy);color:var(--white)}
+.add-to-bag{display:block;width:100%;padding:1rem;background:var(--navy);color:var(--white);font-family:'Arial',sans-serif;font-size:0.85rem;letter-spacing:0.12em;text-transform:uppercase;border:none;cursor:pointer;transition:background 0.2s;margin-bottom:1rem;text-align:center}
+.add-to-bag:hover{background:var(--coral)}
+.product-meta{margin-top:2rem;border-top:1px solid rgba(30,34,71,0.08);padding-top:1.5rem}
+.product-meta-section{margin-bottom:1.2rem}
+.product-meta-title{font-family:'Arial',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--navy);margin-bottom:0.4rem;cursor:pointer;display:flex;justify-content:space-between}
+.product-meta-body{font-family:'Arial',sans-serif;font-size:0.82rem;color:var(--muted);line-height:1.7}
+@media(max-width:800px){.product-detail-inner{grid-template-columns:1fr}.product-detail-info{position:static}.product-detail{padding:2rem 1.5rem 3rem}}
+
 /* CTA BANNER */
 .cta-section{background:var(--coral);padding:5rem 3rem;text-align:center}
 .cta-section h2{font-size:2.2rem;color:var(--white);margin-bottom:0.8rem;font-weight:400}
 .cta-section h2 em{font-style:italic}
 .cta-section p{font-family:'Arial',sans-serif;color:rgba(255,255,255,0.85);margin-bottom:2rem;font-size:0.95rem}
 .cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+
+/* CART */
+.cart-section{padding:4rem 2rem 6rem}
+.cart-title{font-family:'Georgia',serif;font-size:2rem;color:var(--navy);margin-bottom:2.5rem;font-weight:400}
+.cart-empty{text-align:center;padding:4rem 0;color:var(--muted);font-family:'Arial',sans-serif}
+.cart-row{display:flex;justify-content:space-between;align-items:flex-start;padding:1.25rem 0;border-bottom:1px solid var(--coral-pale)}
+.cart-row-info{flex:1}
+.cart-row-name{font-family:'Georgia',serif;font-size:1rem;color:var(--navy);margin-bottom:0.3rem}
+.cart-row-size{font-family:'Arial',sans-serif;font-size:0.8rem;color:var(--muted)}
+.cart-row-right{display:flex;flex-direction:column;align-items:flex-end;gap:0.5rem}
+.cart-row-price{font-family:'Georgia',serif;font-size:1rem;color:var(--navy)}
+.cart-remove{background:none;border:none;color:var(--muted);font-family:'Arial',sans-serif;font-size:0.75rem;cursor:pointer;padding:0;text-decoration:underline}
+.cart-remove:hover{color:var(--coral)}
+.cart-summary{margin-top:2rem;padding-top:1.5rem;border-top:2px solid var(--navy)}
+.cart-total{display:flex;justify-content:space-between;font-family:'Georgia',serif;font-size:1.2rem;color:var(--navy);margin-bottom:1rem}
+.cart-note{font-family:'Arial',sans-serif;font-size:0.8rem;color:var(--muted);margin-bottom:1.5rem}
+.cart-checkout{display:inline-block;width:100%;text-align:center;box-sizing:border-box}
+.btn-coral{background:var(--coral);color:var(--white);font-family:'Arial',sans-serif;font-size:0.8rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:1rem 2.5rem;border:none;cursor:pointer;text-decoration:none;transition:background 0.2s}
+.btn-coral:hover{background:#c0392b}
 
 /* FOOTER */
 footer{background:var(--navy);padding:3rem;text-align:center}

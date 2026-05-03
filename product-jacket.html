@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Untethered Jacket – MAB Untethered</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-mab">MAB</span>
+    <span class="nav-logo-sub">Untethered</span>
+    <span class="nav-tagline">clothes that keep up with you.</span>
+  </a>
+  <ul>
+    <li><a href="index.html" class="active">Shop</a></li>
+    <li><a href="problem.html">The Problem</a></li>
+    <li><a href="solution.html">Our Solution</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="cart.html" class="nav-bag" id="navBag"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><span class="nav-bag-count" id="bagCount">0</span></a></li>
+    <li><a href="https://forms.gle/wyEKR6wCprZCqFtW6" target="_blank" class="nav-cta">join the hype.</a></li>
+  </ul>
+</nav>
+
+<div class="page-body">
+<section class="product-detail">
+  <div class="product-detail-inner">
+
+    <!-- GALLERY -->
+    <div class="product-gallery">
+      <img src="jacket.png" alt="The Untethered Jacket" class="product-gallery-main" id="mainImg">
+      <div class="product-gallery-thumb-row">
+        <img src="jacket.png" alt="Front" class="product-gallery-thumb active" onclick="setMain(this)">
+      </div>
+    </div>
+
+    <!-- INFO -->
+    <div class="product-detail-info">
+      <div class="product-breadcrumb"><a href="index.html">Shop</a> / The Untethered Jacket</div>
+      <div class="product-detail-badge">Pre-order</div>
+      <h1 class="product-detail-name">The Untethered Jacket</h1>
+      <div class="product-detail-price">$208</div>
+      <p class="product-detail-desc">Outerwear with interior and exterior pockets built to carry what you need — without the bulk. Go from morning commute to evening plans without ever reaching for a bag.</p>
+
+      <!-- SIZE -->
+      <div class="size-label">
+        <span>Select Size</span>
+      </div>
+      <div class="size-grid">
+        <button class="size-btn" onclick="selectSize(this)">XS</button>
+        <button class="size-btn" onclick="selectSize(this)">S</button>
+        <button class="size-btn" onclick="selectSize(this)">M</button>
+        <button class="size-btn" onclick="selectSize(this)">L</button>
+        <button class="size-btn" onclick="selectSize(this)">XL</button>
+      </div>
+
+      <button class="add-to-bag" onclick="addToBag('The Untethered Jacket', 208)">Add to Bag</button>
+
+      <!-- META -->
+      <div class="product-meta">
+        <div class="product-meta-section">
+          <div class="product-meta-title">Details</div>
+          <div class="product-meta-body">Tailored outerwear silhouette. Two deep exterior side pockets. Two interior zip pockets — large enough for a phone, wallet, or earbuds. Back vent for ease of movement. Button front closure.</div>
+        </div>
+        <div class="product-meta-section">
+          <div class="product-meta-title">Material</div>
+          <div class="product-meta-body">70% Wool, 20% Polyester, 10% Nylon. Medium-weight outer shell. Fully lined with a smooth polyester lining for warmth and easy layering.</div>
+        </div>
+        <div class="product-meta-section">
+          <div class="product-meta-title">Care</div>
+          <div class="product-meta-body">Dry clean recommended. Spot clean with a damp cloth as needed. Store on a hanger to maintain shape.</div>
+        </div>
+        <div class="product-meta-section">
+          <div class="product-meta-title">Fit & Sizing</div>
+          <div class="product-meta-body">Model is 5'9" and wearing a size S. Designed with a slightly relaxed fit to allow comfortable layering. True to size.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">MAB</div>
+  <div class="footer-sub">Untethered</div>
+  <div class="footer-tagline">clothes that keep up with you.</div>
+  <div class="footer-links">
+    <a href="index.html">Shop</a>
+    <a href="problem.html">The Problem</a>
+    <a href="solution.html">Our Solution</a>
+    <a href="about.html">About Us</a>
+    <a href="mailto:mabhatia@wharton.upenn.edu">Contact</a>
+  </div>
+  <div class="footer-copy">© 2025 MAB Untethered · Philadelphia, PA · mabhatia@wharton.upenn.edu</div>
+</footer>
+</div>
+
+<script>
+function setMain(thumb) {
+  document.getElementById('mainImg').src = thumb.src;
+  document.querySelectorAll('.product-gallery-thumb').forEach(t => t.classList.remove('active'));
+  thumb.classList.add('active');
+}
+function selectSize(btn) {
+  document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+function addToBag(name, price) {
+  const size = document.querySelector('.size-btn.selected');
+  if (!size) { alert('Please select a size.'); return; }
+  const cart = JSON.parse(localStorage.getItem('mab-cart') || '[]');
+  cart.push({ name, price, size: size.textContent });
+  localStorage.setItem('mab-cart', JSON.stringify(cart));
+  alert(`${name} (${size.textContent}) added to your bag!`);
+}
+</script>
+</body>
+</html>
