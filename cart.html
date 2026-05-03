@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Bag – MAB Untethered</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-mab">MAB</span>
+    <span class="nav-logo-sub">Untethered</span>
+    <span class="nav-tagline">clothes that keep up with you.</span>
+  </a>
+  <ul>
+    <li><a href="index.html">Shop</a></li>
+    <li><a href="problem.html">The Problem</a></li>
+    <li><a href="solution.html">Our Solution</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="cart.html" class="nav-bag" id="navBag"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><span class="nav-bag-count" id="bagCount">0</span></a></li>
+    <li><a href="https://forms.gle/wyEKR6wCprZCqFtW6" target="_blank" class="nav-cta">join the hype.</a></li>
+  </ul>
+</nav>
+
+<div class="page-body">
+<section class="cart-section">
+  <div class="section-inner" style="max-width:720px">
+    <h1 class="cart-title">Your Bag</h1>
+    <div id="cartContents"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">MAB</div>
+  <div class="footer-sub">Untethered</div>
+  <div class="footer-tagline">clothes that keep up with you.</div>
+  <div class="footer-links">
+    <a href="index.html">Shop</a>
+    <a href="problem.html">The Problem</a>
+    <a href="solution.html">Our Solution</a>
+    <a href="about.html">About Us</a>
+    <a href="mailto:mabhatia@wharton.upenn.edu">Contact</a>
+  </div>
+  <div class="footer-copy">© 2025 MAB Untethered · Philadelphia, PA · mabhatia@wharton.upenn.edu</div>
+</footer>
+</div>
+
+<script>
+(function() {
+  var cart = JSON.parse(localStorage.getItem('mab-cart') || '[]');
+  var el = document.getElementById('cartContents');
+
+  // Update nav badge
+  var badge = document.getElementById('bagCount');
+  if (badge && cart.length) {
+    badge.textContent = cart.length;
+    badge.classList.add('visible');
+  }
+
+  if (!cart.length) {
+    el.innerHTML = '<div class="cart-empty"><p>Your bag is empty.</p><a href="index.html" class="btn-coral" style="margin-top:1.5rem;display:inline-block">Continue Shopping</a></div>';
+    return;
+  }
+
+  var total = cart.reduce(function(sum, item) { return sum + item.price; }, 0);
+
+  var rows = cart.map(function(item, i) {
+    return '<div class="cart-row" id="cart-row-' + i + '">' +
+      '<div class="cart-row-info">' +
+        '<div class="cart-row-name">' + item.name + '</div>' +
+        '<div class="cart-row-size">Size: ' + item.size + '</div>' +
+      '</div>' +
+      '<div class="cart-row-right">' +
+        '<div class="cart-row-price">$' + item.price + '</div>' +
+        '<button class="cart-remove" onclick="removeItem(' + i + ')">Remove</button>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+
+  el.innerHTML = rows +
+    '<div class="cart-summary">' +
+      '<div class="cart-total"><span>Total</span><span>$' + total + '</span></div>' +
+      '<p class="cart-note">This is a pre-order. You won\'t be charged until your item ships.</p>' +
+      '<a href="https://forms.gle/wyEKR6wCprZCqFtW6" target="_blank" class="btn-coral cart-checkout">Reserve My Order</a>' +
+    '</div>';
+})();
+
+function removeItem(index) {
+  var cart = JSON.parse(localStorage.getItem('mab-cart') || '[]');
+  cart.splice(index, 1);
+  localStorage.setItem('mab-cart', JSON.stringify(cart));
+  location.reload();
+}
+</script>
+</body>
+</html>
