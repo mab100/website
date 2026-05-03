@@ -3,199 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MAB Untethered - clothes that keep up with you.</title>
-<style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  :root{
-    --coral:#E8705A;
-    --coral-light:#F2A090;
-    --coral-pale:#FDF0ED;
-    --coral-dark:#C45240;
-    --navy:#1E2247;
-    --navy-light:#3A3F6B;
-    --text:#2C2C2A;
-    --muted:#6B6B68;
-    --white:#FFFFFF;
-    --off-white:#FDF8F6;
-  }
-  html{scroll-behavior:smooth}
-  body{font-family:'Georgia',serif;color:var(--text);background:var(--white);line-height:1.7}
-  
-  /* NAV */
-  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 3rem;background:rgba(253,248,246,0.95);backdrop-filter:blur(8px);border-bottom:0.5px solid rgba(232,112,90,0.15)}
-  .nav-logo{display:flex;flex-direction:column;line-height:1}
-  .nav-logo-mab{font-family:'Arial',sans-serif;font-weight:700;font-size:1.4rem;color:var(--navy);letter-spacing:0.02em}
-  .nav-logo-sub{font-family:'Arial',sans-serif;font-size:0.55rem;letter-spacing:0.25em;color:var(--coral);text-transform:uppercase;margin-top:2px}
-  .nav-tagline{font-style:italic;font-size:0.75rem;color:var(--muted)}
-  nav ul{list-style:none;display:flex;gap:2rem;align-items:center}
-  nav ul a{text-decoration:none;font-family:'Arial',sans-serif;font-size:0.8rem;letter-spacing:0.08em;color:var(--text);text-transform:uppercase;transition:color 0.2s}
-  nav ul a:hover{color:var(--coral)}
-  .nav-cta{background:var(--coral)!important;color:var(--white)!important;padding:0.5rem 1.2rem!important;border-radius:2px!important;text-transform:none!important}
-  .nav-cta:hover{background:var(--coral-dark)!important;color:var(--white)!important}
-
-  /* HERO */
-  .hero{min-height:100vh;display:flex;align-items:center;background:var(--coral-pale);padding:7rem 3rem 4rem;position:relative;overflow:hidden}
-  .hero::after{content:'';position:absolute;right:-80px;top:50%;transform:translateY(-50%);width:520px;height:520px;border-radius:50%;background:rgba(232,112,90,0.08);pointer-events:none}
-  .hero-inner{max-width:1100px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
-  .hero-eyebrow{font-family:'Arial',sans-serif;font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--coral);margin-bottom:1rem}
-  .hero h1{font-size:3.2rem;line-height:1.15;color:var(--navy);font-weight:400;margin-bottom:1.5rem}
-  .hero h1 em{font-style:italic;color:var(--coral)}
-  .hero-desc{font-size:1.05rem;color:var(--muted);margin-bottom:2rem;font-family:'Arial',sans-serif;line-height:1.7}
-  .hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
-  .btn-primary{background:var(--coral);color:var(--white);padding:0.85rem 1.8rem;border:none;border-radius:2px;font-family:'Arial',sans-serif;font-size:0.85rem;letter-spacing:0.06em;text-transform:none;cursor:pointer;text-decoration:none;transition:background 0.2s;display:inline-block}
-  .btn-primary:hover{background:var(--coral-dark)}
-  .btn-outline{background:transparent;color:var(--navy);padding:0.85rem 1.8rem;border:1.5px solid var(--navy);border-radius:2px;font-family:'Arial',sans-serif;font-size:0.85rem;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:all 0.2s;display:inline-block}
-  .btn-outline:hover{border-color:var(--coral);color:var(--coral)}
-  .hero-visual{position:relative;display:flex;justify-content:center;align-items:center}
-  .hero-img-frame{width:100%;max-width:420px;background:var(--white);border-radius:4px;padding:2rem;box-shadow:0 4px 40px rgba(232,112,90,0.12);text-align:center}
-  .hero-img-frame img{width:100%;border-radius:2px}
-  .hero-img-caption{font-family:'Arial',sans-serif;font-size:0.72rem;color:var(--muted);margin-top:0.8rem;letter-spacing:0.05em;font-style:italic}
-
-  /* SECTION WRAPPER */
-  section{padding:5rem 3rem}
-  .section-inner{max-width:1100px;margin:0 auto}
-  .section-label{font-family:'Arial',sans-serif;font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--coral);margin-bottom:0.8rem}
-  .section-title{font-size:2.2rem;color:var(--navy);font-weight:400;line-height:1.2;margin-bottom:1.2rem}
-  .section-title em{font-style:italic;color:var(--coral)}
-  .divider{width:48px;height:2px;background:var(--coral);margin-bottom:2rem;border-radius:1px}
-
-  /* THE PROBLEM */
-  .problem{background:var(--white)}
-  .problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:2rem}
-  .problem-text p{color:var(--muted);font-size:1rem;font-family:'Arial',sans-serif;margin-bottom:1rem;line-height:1.8}
-  .problem-text p strong{color:var(--navy)}
-  .stat-cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-  .stat-card{background:var(--coral-pale);border-radius:4px;padding:1.5rem;border-left:3px solid var(--coral)}
-  .stat-num{font-size:2rem;font-weight:700;color:var(--coral);font-family:'Arial',sans-serif;line-height:1}
-  .stat-label{font-family:'Arial',sans-serif;font-size:0.75rem;color:var(--navy);margin-top:0.4rem;line-height:1.4}
-  .problem-pullquote{background:var(--navy);color:var(--white);padding:2.5rem;border-radius:4px;margin-top:1.5rem}
-  .problem-pullquote blockquote{font-size:1.15rem;font-style:italic;line-height:1.6;margin-bottom:1rem}
-  .problem-pullquote cite{font-family:'Arial',sans-serif;font-size:0.75rem;letter-spacing:0.1em;color:var(--coral-light);text-transform:uppercase}
-
-  /* SOLUTION */
-  .solution{background:var(--coral-pale)}
-  .solution-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem}
-  .sol-card{background:var(--white);padding:2rem;border-radius:4px;border-top:3px solid var(--coral)}
-  .sol-card-icon{font-size:1.5rem;margin-bottom:1rem}
-  .sol-card h3{font-size:1rem;color:var(--navy);margin-bottom:0.6rem;font-family:'Arial',sans-serif;font-weight:700;letter-spacing:0.02em}
-  .sol-card p{font-family:'Arial',sans-serif;font-size:0.85rem;color:var(--muted);line-height:1.7}
-  .sol-card .sub{font-size:0.72rem;color:var(--coral);font-family:'Arial',sans-serif;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.4rem}
-
-  /* FOUNDER */
-  .founder{background:var(--white)}
-  .founder-grid{display:grid;grid-template-columns:1fr 2fr;gap:4rem;align-items:start;margin-top:2rem}
-  .founder-photo-wrap{text-align:center}
-  .founder-photo{width:180px;height:180px;border-radius:50%;object-fit:cover;border:4px solid var(--coral-pale);margin-bottom:1rem}
-  .founder-name{font-family:'Arial',sans-serif;font-weight:700;color:var(--navy);font-size:1rem}
-  .founder-role{font-family:'Arial',sans-serif;font-size:0.7rem;letter-spacing:0.15em;color:var(--coral);text-transform:uppercase;margin-top:0.2rem}
-  .founder-text p{font-family:'Arial',sans-serif;font-size:0.95rem;color:var(--muted);line-height:1.8;margin-bottom:1rem}
-  .founder-text p strong{color:var(--navy)}
-  .founder-tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1rem}
-  .tag{background:var(--coral-pale);color:var(--coral-dark);font-family:'Arial',sans-serif;font-size:0.72rem;letter-spacing:0.08em;padding:0.35rem 0.8rem;border-radius:2px;text-transform:uppercase}
-
-  /* PROGRESS / NEWSLETTERS */
-  .progress{background:var(--coral-pale)}
-  .newsletters{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem}
-  .nl-card{background:var(--white);border-radius:4px;padding:1.8rem;border:0.5px solid rgba(232,112,90,0.2)}
-  .nl-sprint{font-family:'Arial',sans-serif;font-size:0.65rem;letter-spacing:0.25em;color:var(--coral);text-transform:uppercase;margin-bottom:0.5rem}
-  .nl-title{font-size:1rem;color:var(--navy);margin-bottom:0.8rem;font-family:'Arial',sans-serif;font-weight:700}
-  .nl-body{font-family:'Arial',sans-serif;font-size:0.83rem;color:var(--muted);line-height:1.7;margin-bottom:1.2rem}
-  .nl-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.2rem}
-  .nl-tag{background:var(--coral-pale);color:var(--coral-dark);font-family:'Arial',sans-serif;font-size:0.68rem;padding:0.2rem 0.5rem;border-radius:2px}
-  .nl-link{font-family:'Arial',sans-serif;font-size:0.75rem;letter-spacing:0.08em;color:var(--coral);text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--coral-light);padding-bottom:1px}
-  .nl-link:hover{color:var(--coral-dark)}
-  .progress-summary{margin-top:2.5rem;background:var(--navy);color:var(--white);padding:2rem 2.5rem;border-radius:4px;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
-  .ps-item{text-align:center}
-  .ps-num{font-size:1.8rem;font-weight:700;color:var(--coral-light);font-family:'Arial',sans-serif}
-  .ps-label{font-family:'Arial',sans-serif;font-size:0.72rem;color:rgba(255,255,255,0.7);margin-top:0.3rem;line-height:1.4}
-
-  /* SHOP */
-  .shop{background:var(--white);padding:5rem 3rem}
-  .shop-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2.5rem}
-  .shop-count{font-family:'Arial',sans-serif;font-size:0.75rem;color:var(--muted);letter-spacing:0.05em}
-  .shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem 2rem}
-  .product-card{cursor:pointer}
-  .product-card:hover .product-img-wrap img{transform:scale(1.03)}
-  .product-img-wrap{width:100%;aspect-ratio:2/3;overflow:hidden;background:var(--coral-pale);position:relative;margin-bottom:0.9rem}
-  .product-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s ease;display:block}
-  .product-img-placeholder{width:100%;height:100%;background:linear-gradient(160deg,var(--coral-pale) 0%,#f5e0dc 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.6rem}
-  .product-img-placeholder span{font-size:3rem;opacity:0.5}
-  .product-img-placeholder p{font-family:'Arial',sans-serif;font-size:0.65rem;letter-spacing:0.18em;color:var(--coral);text-transform:uppercase}
-  .product-badge{position:absolute;top:0.75rem;left:0.75rem;font-family:'Arial',sans-serif;font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.25rem 0.55rem;border-radius:2px}
-  .badge-preorder{background:var(--coral);color:var(--white)}
-  .badge-soon{background:var(--navy);color:var(--white)}
-  .product-name{font-family:'Arial',sans-serif;font-weight:700;color:var(--navy);font-size:0.9rem;letter-spacing:0.01em;margin-bottom:0.25rem}
-  .product-desc{font-family:'Arial',sans-serif;font-size:0.78rem;color:var(--muted);line-height:1.5;margin-bottom:0.5rem}
-  .product-price{font-family:'Arial',sans-serif;font-size:0.88rem;color:var(--navy)}
-  .product-add{display:block;width:100%;margin-top:0.8rem;padding:0.7rem;background:var(--navy);color:var(--white);font-family:'Arial',sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;border:none;cursor:pointer;transition:background 0.2s;text-align:center;text-decoration:none}
-  .product-add:hover{background:var(--coral)}
-  .product-add.disabled{background:var(--muted);cursor:default;opacity:0.6}
-  @media(max-width:800px){.shop-grid{grid-template-columns:repeat(2,1fr)}.shop{padding:3rem 1.5rem}}
-
-  /* CTA */
-  .cta-section{background:var(--coral);padding:5rem 3rem;text-align:center}
-  .cta-section h2{font-size:2.2rem;color:var(--white);margin-bottom:0.8rem;font-weight:400}
-  .cta-section h2 em{font-style:italic}
-  .cta-section p{font-family:'Arial',sans-serif;color:rgba(255,255,255,0.85);margin-bottom:2rem;font-size:0.95rem}
-  .cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-  .btn-white{background:var(--white);color:var(--coral);padding:0.85rem 1.8rem;border:none;border-radius:2px;font-family:'Arial',sans-serif;font-size:0.85rem;letter-spacing:0.06em;text-transform:none;cursor:pointer;text-decoration:none;transition:all 0.2s;display:inline-block;font-weight:700}
-  .btn-white:hover{background:var(--coral-pale)}
-  .btn-outline-white{background:transparent;color:var(--white);padding:0.85rem 1.8rem;border:1.5px solid rgba(255,255,255,0.6);border-radius:2px;font-family:'Arial',sans-serif;font-size:0.85rem;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:all 0.2s;display:inline-block}
-  .btn-outline-white:hover{border-color:var(--white);background:rgba(255,255,255,0.1)}
-
-  /* FOOTER */
-  footer{background:var(--navy);padding:3rem;text-align:center}
-  .footer-logo{font-family:'Arial',sans-serif;font-weight:700;font-size:1.6rem;color:var(--white);letter-spacing:0.05em}
-  .footer-sub{font-family:'Arial',sans-serif;font-size:0.55rem;letter-spacing:0.3em;color:var(--coral-light);text-transform:uppercase;margin-top:0.3rem}
-  .footer-tagline{font-style:italic;font-size:0.85rem;color:rgba(255,255,255,0.5);margin-top:0.5rem}
-  .footer-links{display:flex;gap:2rem;justify-content:center;margin-top:1.5rem}
-  .footer-links a{font-family:'Arial',sans-serif;font-size:0.75rem;letter-spacing:0.1em;color:rgba(255,255,255,0.5);text-decoration:none;text-transform:uppercase;transition:color 0.2s}
-  .footer-links a:hover{color:var(--coral-light)}
-  .footer-copy{font-family:'Arial',sans-serif;font-size:0.72rem;color:rgba(255,255,255,0.3);margin-top:1.5rem}
-
-  @media(max-width:800px){
-    nav{padding:1rem 1.5rem}
-    nav ul{gap:1rem}
-    .hero-inner,.problem-grid,.founder-grid{grid-template-columns:1fr}
-    .solution-cards,.newsletters{grid-template-columns:1fr}
-    .hero{padding:6rem 1.5rem 3rem}
-    section{padding:3rem 1.5rem}
-    .progress-summary{grid-template-columns:1fr 1fr}
-    .stat-cards{grid-template-columns:1fr 1fr}
-    .hero h1{font-size:2.2rem}
-  }
-</style>
+<title>Shop – MAB Untethered</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a href="#top" class="nav-logo" style="text-decoration:none">
+  <a href="index.html" class="nav-logo">
     <span class="nav-logo-mab">MAB</span>
     <span class="nav-logo-sub">Untethered</span>
     <span class="nav-tagline">clothes that keep up with you.</span>
   </a>
   <ul>
-    <li><a href="#shop">Shop</a></li>
-    <li><a href="#problem">The problem</a></li>
-    <li><a href="#solution">Our solution</a></li>
-    <li><a href="#founder">Founder</a></li>
-    <li><a href="#progress">Progress</a></li>
+    <li><a href="index.html" class="active">Shop</a></li>
+    <li><a href="problem.html">The Problem</a></li>
+    <li><a href="solution.html">Our Solution</a></li>
+    <li><a href="about.html">About Us</a></li>
     <li><a href="https://forms.gle/wyEKR6wCprZCqFtW6" target="_blank" class="nav-cta">join the hype.</a></li>
   </ul>
 </nav>
 
+<div class="page-body">
+
 <!-- HERO -->
 <section class="hero" id="top">
   <div class="hero-inner">
-    <div>
-      <p class="hero-eyebrow">A social equity + fashion venture</p>
-      <h1>Women deserve clothes designed for <em>autonomy.</em></h1>
-      <p class="hero-desc">MAB Untethered is an apparel brand designing trendy clothing with deep, usable pockets, so women can move freely and safely through the world.</p>
-      <div class="hero-btns">
-        <a href="https://forms.gle/wyEKR6wCprZCqFtW6" target="_blank" class="btn-primary">join the hype.</a>
-        <a href="https://forms.gle/w7cwCQEqip1CWY567" target="_blank" class="btn-outline">Take our survey</a>
-      </div>
+    <p class="hero-eyebrow">A social equity + fashion venture</p>
+    <h1>Women deserve clothes designed for <em>autonomy.</em></h1>
+    <p class="hero-desc">MAB Untethered is an apparel brand designing trendy clothing with deep, usable pockets, so women can move freely and safely through the world.</p>
+    <div class="hero-btns">
+      <a href="https://forms.gle/wyEKR6wCprZCqFtW6" target="_blank" class="btn-primary">join the hype.</a>
+      <a href="https://forms.gle/w7cwCQEqip1CWY567" target="_blank" class="btn-outline">Take our survey</a>
     </div>
   </div>
 </section>
@@ -258,166 +97,8 @@
   </div>
 </section>
 
-<!-- THE PROBLEM -->
-<section class="problem" id="problem">
-  <div class="section-inner">
-    <p class="section-label">The problem</p>
-    <h2 class="section-title">Women are forced to choose between <em>style and function.</em></h2>
-    <div class="divider"></div>
-    <div class="problem-grid">
-      <div class="problem-text">
-        <p>Women's clothing has been designed around aesthetics, and not around how women actually move through the world. <strong>The result? Fake pockets. Decorative seams. Invisible openings too small to hold a phone.</strong></p>
-        <p>Every day, women carry bags out of necessity, because our clothing simply doesn't hold what we need. This is a design failure, and it has real consequences: financial cost, physical burden, and a quiet message that women's ease of movement is less important than silhouette.</p>
-        <p><strong>Function is already transforming how we dress - for athleisure, for menswear, for workwear.</strong> But it hasn't arrived yet for women's everyday clothing. That gap is the opportunity.</p>
-        <div class="problem-pullquote">
-          <blockquote>"If I could find a pair of cute, well-tailored dress pants that actually fit my phone, I'd buy three pairs immediately."</blockquote>
-          <cite>- Simone A., early customer interview, 28-year-old professional</cite>
-        </div>
-      </div>
-      <div>
-        <div class="stat-cards">
-          <div class="stat-card">
-            <div class="stat-num">84%</div>
-            <div class="stat-label">of women surveyed have paid a premium for functional pockets</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num">72%</div>
-            <div class="stat-label">of women interviewed have avoided wearing something because it didn't have pockets</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num">$1.1B</div>
-            <div class="stat-label">serviceable obtainable market in functional women's apparel</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num">60%</div>
-            <div class="stat-label">gross margin at our $158 price point - premium but accessible</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="hero-img-frame" style="margin-top:2.5rem;max-width:100%">
-      <img src="hero.png" alt="Women's apparel with functional design">
-      <p class="hero-img-caption">Coming soon - clothes that finally keep up with you.</p>
-    </div>
-  </div>
-</section>
-
-<!-- SOLUTION -->
-<section class="solution" id="solution">
-  <div class="section-inner">
-    <p class="section-label">Our solution</p>
-    <h2 class="section-title">How we're <em>different</em></h2>
-    <div class="divider"></div>
-    <div class="solution-cards">
-      <div class="sol-card">
-        <div class="sub">Engineered storage</div>
-        <h3>Not just pockets; real carrying capacity</h3>
-        <p>Deep, secure pockets designed to hold what you actually carry - phone, lip-gloss, keys, cards - without bulk or discomfort. Pocket depth and placement engineered from the ground up.</p>
-      </div>
-      <div class="sol-card">
-        <div class="sub">Invisible functionality</div>
-        <h3>Polished look, hidden utility</h3>
-        <p>Functional storage integrated into tailored silhouettes - so your outfit stays sharp whether you're in a boardroom or heading to happy hour. No cargo aesthetics required.</p>
-      </div>
-      <div class="sol-card">
-        <div class="sub">Female-first design</div>
-        <h3>Built for women's bodies, not scaled-down menswear</h3>
-        <p>Pockets sit correctly, distribute weight naturally, and don't sag or pull. Designed around how women's bodies actually move - not an afterthought on a men's template.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOUNDER -->
-<section class="founder" id="founder">
-  <div class="section-inner">
-    <p class="section-label">Founder</p>
-    <h2 class="section-title">Built by the <em>customer</em></h2>
-    <div class="divider"></div>
-    <div class="founder-grid">
-      <div class="founder-photo-wrap">
-        <img src="founder.jpg" alt="Meenakshi Anand Bhatia" class="founder-photo">
-        <div class="founder-name">Meenakshi A. Bhatia</div>
-        <div class="founder-role">CEO + Founder · Philadelphia, USA</div>
-        <div class="founder-tags" style="justify-content:center;margin-top:0.8rem">
-          <span class="tag">Wharton MBA</span>
-          <span class="tag">Data science</span>
-          <span class="tag">Entrepreneurship</span>
-        </div>
-      </div>
-      <div class="founder-text">
-        <p>I started MAB Untethered after a simple moment at work: I was heading into a meeting, juggling my laptop, notebook, and coffee - and instinctively tried to slip my phone into my pocket, only to realize I didn't have one. Meanwhile, my male colleagues were completely hands-free.</p>
-        <p><strong>That moment wasn't small.</strong> It was a reminder of something bigger: women's clothing still isn't designed for how we actually move through the world. I'm building MAB Untethered as the customer. I live this problem every day. I've altered my own clothes to fit my daily function.</p>
-        <p><strong>My operator background:</strong> I've built my career identifying broken systems and rebuilding them - from data science to entrepreneurship to leading women's initiatives at Wharton. I spot inefficiencies, test quickly, and build systems that scale. MAB Untethered is a business of iteration, and I know how to run that loop.</p>
-        <p><strong>The edge:</strong> combining lived experience with data-driven execution to redefine functionality as a standard in women's clothing - not a niche feature.</p>
-        <a href="mailto:mabhatia@wharton.upenn.edu" class="btn-outline" style="margin-top:0.5rem;font-size:0.75rem;padding:0.6rem 1.2rem">Get in touch</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROGRESS -->
-<section class="progress" id="progress">
-  <div class="section-inner">
-    <p class="section-label">Progress</p>
-    <h2 class="section-title">Building in <em>public</em></h2>
-    <div class="divider"></div>
-    <p style="font-family:'Arial',sans-serif;color:var(--muted);max-width:600px;margin-bottom:2rem">We document every sprint - what we built, what we learned, what changed. Follow along as MAB Untethered moves from idea to product.</p>
-    <div class="newsletters">
-      <div class="nl-card">
-        <div class="nl-sprint">Sprint 03</div>
-        <div class="nl-title">Survey scale + prototype direction</div>
-        <div class="nl-body">Launched a broader survey targeting 50+ responses. Refined beachhead segment and sharpened competitive differentiation. Exploring "bag-free mobility" as the core positioning angle.</div>
-        <div class="nl-tags">
-          <span class="nl-tag">Survey launch</span>
-          <span class="nl-tag">Segmentation</span>
-          <span class="nl-tag">Competitive analysis</span>
-        </div>
-      </div>
-      <div class="nl-card">
-        <div class="nl-sprint">Sprint 02</div>
-        <div class="nl-title">Customer validation + feasibility</div>
-        <div class="nl-body">Conducted 4 in-depth interviews with women aged 24-35. Learned the problem goes beyond pockets - safety and bag-free mobility are the deeper need. Began founder outreach in functional apparel.</div>
-        <div class="nl-tags">
-          <span class="nl-tag">Customer interviews</span>
-          <span class="nl-tag">Positioning pivot</span>
-          <span class="nl-tag">Prototype planning</span>
-        </div>
-      </div>
-      <div class="nl-card">
-        <div class="nl-sprint">Sprint 01</div>
-        <div class="nl-title">Demand + willingness to pay</div>
-        <div class="nl-body">Launched the brand and began validating demand. Established that WTP exists and defined our initial raise goal of $20k to deploy toward product development.</div>
-        <div class="nl-tags">
-          <span class="nl-tag">Brand launch</span>
-          <span class="nl-tag">Market research</span>
-          <span class="nl-tag">Fundraising</span>
-        </div>
-      </div>
-    </div>
-    <div class="progress-summary">
-      <div class="ps-item">
-        <div class="ps-num">10</div>
-        <div class="ps-label">customer interviews conducted</div>
-      </div>
-      <div class="ps-item">
-        <div class="ps-num">50+</div>
-        <div class="ps-label">survey responses received</div>
-      </div>
-      <div class="ps-item">
-        <div class="ps-num">3</div>
-        <div class="ps-label">sprints of documented progress</div>
-      </div>
-      <div class="ps-item">
-        <div class="ps-num">5</div>
-        <div class="ps-label">founder interviews completed</div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- CTA -->
-<section class="cta-section" id="cta">
+<section class="cta-section">
   <h2><em>Ready to move freely?</em></h2>
   <p>Be the first to know when MAB Untethered launches - and help shape what we build.</p>
   <div class="cta-btns">
@@ -432,14 +113,15 @@
   <div class="footer-sub">Untethered</div>
   <div class="footer-tagline">clothes that keep up with you.</div>
   <div class="footer-links">
-    <a href="#problem">The problem</a>
-    <a href="#solution">Our solution</a>
-    <a href="#founder">Founder</a>
-    <a href="#progress">Progress</a>
+    <a href="index.html">Shop</a>
+    <a href="problem.html">The Problem</a>
+    <a href="solution.html">Our Solution</a>
+    <a href="about.html">About Us</a>
     <a href="mailto:mabhatia@wharton.upenn.edu">Contact</a>
   </div>
   <div class="footer-copy">© 2025 MAB Untethered · Philadelphia, PA · mabhatia@wharton.upenn.edu</div>
 </footer>
 
+</div>
 </body>
 </html>
