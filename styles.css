@@ -173,6 +173,11 @@ section{padding:5rem 3rem}
 .cta-section p{font-family:'Arial',sans-serif;color:rgba(255,255,255,0.85);margin-bottom:2rem;font-size:0.95rem}
 .cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
 
+/* DATA ROOM */
+.data-room-bar{text-align:center;padding:0 1.2rem 1rem;background:var(--coral-pale);margin-top:-1.5rem}
+.data-room-link{font-family:'Arial',sans-serif;font-size:0.75rem;color:var(--muted);text-decoration:none;letter-spacing:0.06em;border:1px solid rgba(180,80,60,0.35);padding:0.45rem 1.1rem;display:inline-block;transition:border-color 0.2s,color 0.2s}
+.data-room-link:hover{color:var(--coral);border-color:var(--coral)}
+
 /* CART */
 .cart-section{padding:4rem 2rem 6rem}
 .cart-title{font-family:'Georgia',serif;font-size:2rem;color:var(--navy);margin-bottom:2.5rem;font-weight:400}
